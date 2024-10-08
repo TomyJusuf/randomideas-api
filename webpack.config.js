@@ -7,7 +7,7 @@ module.exports = {
   entry: './src/index.js', // Update this to the correct entry point for your frontend
 
   output: {
-    filename: 'bundle.js', // The name of the output file
+    filename: 'index.js', // The name of the output file
     path: path.resolve(__dirname, 'dist'), // The output directory
     publicPath: '/', // Ensure that Webpack can resolve paths correctly
   },

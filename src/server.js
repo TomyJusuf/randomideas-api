@@ -39,6 +39,13 @@ const ideas = [
     username: 'TomyJusuf',
     date: '2019-01-20',
   },
+  {
+    id: 6,
+    text: 'Master simple webpack',
+    tags: ['javascript', 'webpack'],
+    username: 'TomyJusuf',
+    date: '2024-01-20',
+  },
 ]
 const technologies = [
   {
