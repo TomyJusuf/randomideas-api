@@ -9,7 +9,7 @@ module.exports = {
   output: {
     filename: 'index.js', // The name of the output file
     path: path.resolve(__dirname, 'dist'), // The output directory
-    publicPath: '/', // Ensure that Webpack can resolve paths correctly
+    publicPath: '/randomideas-api', // Ensure that Webpack can resolve paths correctly
   },
   module: {
     rules: [
