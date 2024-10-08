@@ -1,4 +1,5 @@
 const express = require('express')
+const cors = require('cors') // Allow CORS for your API
 const port = 5000
 
 const app = express()
@@ -77,9 +78,11 @@ const technologies = [
   },
 ]
 
+app.use(cors()) // Enable CORS if needed
+
 // Simple route
 app.get('/', (req, res) => {
-  res.json({ message: 'Welcome to the Random Ideas API' })
+  res.json('Random Ideas App')
 })
 
 app.get('/api/allObjects', (req, res) => {
