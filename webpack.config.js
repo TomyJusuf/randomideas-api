@@ -9,7 +9,7 @@ module.exports = {
   output: {
     filename: 'index.js', // The name of the output file
     path: path.resolve(__dirname, 'dist'), // The output directory
-    publicPath: '/randomideas-api', // Ensure that Webpack can resolve paths correctly
+    // publicPath: 'index.js', // Ensure that Webpack can resolve paths correctly
   },
   module: {
     rules: [
@@ -38,6 +38,8 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/index.html', // Path to your HTML file
       filename: 'index.html', // Output filename
+      inject: 'body',
+      scriptLoading: 'defer',
     }),
   ],
 }
