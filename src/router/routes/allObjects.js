@@ -1,13 +1,13 @@
-const { objIdeas, objTechnologies } = require('../../data/objData')
+const { objIdea, objTechnologies } = require('../../data/objData')
 
 const getAll = (req, res) => {
   res.json({
     success: true,
     data: {
-      ideas: objIdeas,
+      ideas: objIdea,
       technologies: objTechnologies,
     },
   })
 }
 
-module.exports = { getAll }
+module.exports = getAll

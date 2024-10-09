@@ -23,14 +23,15 @@ class FetchData {
 const fetchData1 = new FetchData(url, '/')
 
 fetchData1.get().then((data) => {
-  console.log(data)
   const div = document.createElement('div')
   div.innerText = `${data.message}`
   document.getElementById('app').appendChild(div)
 })
+const fetchData = new FetchData(url, '/api/all')
+fetchData.get().then((data) => console.log(data, 'all data'))
 
 const fetchData2 = new FetchData(url, '/api/ideas')
-fetchData2.get().then((data) => console.log(data))
+fetchData2.get().then((data) => console.log(data, 'ideas data'))
 
 const fetchData3 = new FetchData(url, '/api/technologies')
-fetchData3.get().then((data) => console.log(data))
+fetchData3.get().then((data) => console.log(data, 'technologies data'))

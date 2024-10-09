@@ -8,6 +8,7 @@ const port = 5000
 
 app.use(cors()) // Enable CORS
 
+app.use(express.json())
 app.use(router)
 
 // Start the server

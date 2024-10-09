@@ -15,4 +15,21 @@ const getIdeaById = (req, res) => {
   })
 }
 
-module.exports = { getAllIdeas, getIdeaById }
+const postIdea = (req, res) => {
+  const idea = {
+    id: objIdea[objIdea.length - 1].id + 1,
+    text: req.body.title,
+    tags: ['blog', 'writing'],
+    username: 'TomyJusuf',
+    date: new Date().toISOString().split('T')[0],
+  }
+
+  objIdea.push(idea)
+
+  res.json({
+    success: true,
+    data: idea,
+  })
+}
+
+module.exports = { getAllIdeas, getIdeaById, postIdea }
