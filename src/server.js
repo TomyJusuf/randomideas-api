@@ -46,6 +46,34 @@ const ideas = [
     username: 'TomyJusuf',
     date: '2024-01-20',
   },
+  {
+    id: 7,
+    text: 'Robust React App',
+    tags: ['javascript', 'webpack'],
+    username: 'TomyJusuf',
+    date: '2024-01-20',
+  },
+  {
+    id: 8,
+    text: 'NextJS App',
+    tags: ['javascript', 'webpack'],
+    username: 'TomyJusuf',
+    date: '2024-01-20',
+  },
+  {
+    id: 9,
+    text: 'CharlieJS App',
+    tags: ['javascript', 'webpack'],
+    username: 'TomyJusuf',
+    date: '2024-01-20',
+  },
+  {
+    id: 10,
+    text: 'NodeJS App',
+    tags: ['javascript', 'webpack'],
+    username: 'TomyJusuf',
+    date: '2024-01-20',
+  },
 ]
 const technologies = [
   {
