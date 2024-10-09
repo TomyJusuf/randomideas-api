@@ -1,9 +1,4 @@
-const express = require('express')
-const cors = require('cors') // Allow CORS for your API
-const port = 5000
-
-const app = express()
-const ideas = [
+const objIdea = [
   {
     id: 1,
     text: 'Learn JavaScript',
@@ -67,15 +62,8 @@ const ideas = [
     username: 'TomyJusuf',
     date: '2024-01-20',
   },
-  {
-    id: 10,
-    text: 'NodeJS App',
-    tags: ['javascript', 'webpack'],
-    username: 'TomyJusuf',
-    date: '2024-01-20',
-  },
 ]
-const technologies = [
+const objTechnologies = [
   {
     id: 1,
     name: 'HTML',
@@ -113,41 +101,4 @@ const technologies = [
   },
 ]
 
-app.use(cors()) // Enable CORS if needed
-
-// Simple route
-app.get('/', (req, res) => {
-  res.json('Random Ideas App')
-})
-
-app.get('/api/allObjects', (req, res) => {
-  res.json({
-    success: true,
-    data: {
-      ideas: ideas,
-      technologies: technologies,
-    },
-  })
-})
-
-app.get('/api/ideas', (req, res) => {
-  res.json({ success: true, data: ideas })
-})
-
-app.get('/api/ideas/:id', (req, res) => {
-  const idea = ideas.find((idea) => idea.id === +req.params.id)
-  if (!idea) {
-    return res.status(404).json({ success: false, error: 'Resource not found' })
-  }
-  res.json({
-    success: true,
-    data: idea,
-  })
-})
-
-app.get('/api/technologies', (req, res) => {
-  res.json({ success: true, data: technologies })
-})
-
-// Start server
-app.listen(port, () => console.log(`Server is listening on port ${port}`))
+module.exports = { objIdea, objTechnologies }

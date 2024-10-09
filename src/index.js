@@ -23,8 +23,9 @@ class FetchData {
 const fetchData1 = new FetchData(url, '/')
 
 fetchData1.get().then((data) => {
+  console.log(data)
   const div = document.createElement('div')
-  div.innerText = `${data}`
+  div.innerText = `${data.message}`
   document.getElementById('app').appendChild(div)
 })
 
