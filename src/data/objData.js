@@ -62,6 +62,13 @@ const objIdea = [
     username: 'TomyJusuf',
     date: '2024-01-20',
   },
+  {
+    id: 10,
+    text: 'React Native App',
+    tags: ['javascript', 'webpack'],
+    username: 'TomyJusuf',
+    date: '2024-01-20',
+  },
 ]
 const objTechnologies = [
   {
