@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-
+const Idea = require('../../models/idea')
 const {
   getAllIdeas,
   getIdeaById,
@@ -12,8 +12,13 @@ const {
   putIdea,
 } = require('../controller/controller')
 
-router.get('/', (req, res) => {
-  res.send({ message: 'Hello World' })
+router.get('/', async (req, res) => {
+  try {
+    const ideas = await Idea.find()
+    res.json(ideas)
+  } catch (error) {
+    res.status(500).json({ message: error.message })
+  }
 })
 
 router.get('/api/all', getAll)
