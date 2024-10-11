@@ -8,7 +8,7 @@ const getAllIdeas = async (req, res) => {
       ...idea._doc,
       date: idea.date.toISOString().split('T')[0], // 'yyyy-mm-dd'
     }))
-
+    // console.log(formattedIdeas, 'get data')
     res.json({ success: true, data: formattedIdeas })
   } catch (error) {
     res.status(500).json({
@@ -20,9 +20,9 @@ const getAllIdeas = async (req, res) => {
 
 const getIdeaById = async (req, res) => {
   try {
-    const id = parseInt(req.params.id)
+    const id = req.params.id
 
-    const idea = await Idea.findOne({ id }).exec()
+    const idea = await Idea.findById(id).exec()
 
     if (!idea) {
       return res
@@ -34,6 +34,7 @@ const getIdeaById = async (req, res) => {
       ...idea._doc,
       date: idea.date.toISOString().split('T')[0], // 'yyyy-mm-dd'
     }
+
     res.json({
       success: true,
       data: formatedIdea,
@@ -51,7 +52,7 @@ const postIdea = async (req, res) => {
   try {
     // Create a new Idea instance
     const idea = new Idea({
-      id: (await Idea.countDocuments()) + 1, // Auto-increment ID
+      // id: (await Idea.countDocuments()) + 1, // Auto-increment ID
       text: req.body.text,
       tags: req.body.tags || ['blog', 'writing'], // Default tags if not provided
       username: req.body.username,
@@ -82,9 +83,9 @@ const postIdea = async (req, res) => {
 const putIdea = async (req, res) => {
   try {
     const ideaId = req.params.id
-
+    console.log(ideaId)
     const ideas = await Idea.findOneAndUpdate(
-      { id: ideaId },
+      { _id: ideaId },
       { $set: req.body },
       { new: true },
       { runValidators: true }
@@ -112,10 +113,10 @@ const putIdea = async (req, res) => {
 
 const deleteIdea = async (req, res) => {
   try {
-    const ideaId = parseInt(req.params.id) // Parse the ID from the request parameters
+    const ideaId = req.params.id // Parse the ID from the request parameters
 
     // Find and delete the idea with the given custom ID
-    const deletedIdea = await Idea.findOneAndDelete({ id: ideaId })
+    const deletedIdea = await Idea.findByIdAndDelete({ _id: ideaId })
 
     if (!deletedIdea) {
       return res
