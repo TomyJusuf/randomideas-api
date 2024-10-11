@@ -1,63 +1,141 @@
-const { objIdea } = require('../../data/objData')
+// const { objIdea } = require('../../data/objData')
 
-const getAllIdeas = (req, res) => {
-  res.json({ success: true, data: objIdea })
+const Idea = require('../../models/idea')
+
+const getAllIdeas = async (req, res) => {
+  try {
+    const ideas = await Idea.find()
+
+    const formattedIdeas = ideas.map((idea) => ({
+      ...idea._doc,
+      date: idea.date.toISOString().split('T')[0], // 'yyyy-mm-dd'
+    }))
+
+    res.json({ success: true, data: formattedIdeas })
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Server error, could not fetch ideas',
+    })
+  }
 }
 
-const getIdeaById = (req, res) => {
-  const idea = objIdea.find((idea) => idea.id === +req.params.id)
-  if (!idea) {
-    return res.status(404).json({ success: false, error: 'Resource not found' })
+const getIdeaById = async (req, res) => {
+  try {
+    const id = parseInt(req.params.id)
+
+    const idea = await Idea.findOne({ id }).exec()
+
+    if (!idea) {
+      return res
+        .status(404)
+        .json({ success: false, error: 'Resource not found' })
+    }
+
+    const formatedIdea = {
+      ...idea._doc,
+      date: idea.date.toISOString().split('T')[0], // 'yyyy-mm-dd'
+    }
+    res.json({
+      success: true,
+      data: formatedIdea,
+    })
+  } catch (error) {
+    console.error(error) // Log the error for debugging
+    res.status(500).json({
+      success: false,
+      message: 'Server error, could not fetch the idea',
+    })
   }
-  res.json({
-    success: true,
-    data: idea,
-  })
 }
 
-const postIdea = (req, res) => {
-  const idea = {
-    id: objIdea[objIdea.length - 1].id + 1,
-    text: req.body.text,
-    tags: ['blog', 'writing'],
-    username: req.body.username,
-    date: new Date().toISOString().split('T')[0],
+const postIdea = async (req, res) => {
+  try {
+    // Create a new Idea instance
+    const idea = new Idea({
+      id: (await Idea.countDocuments()) + 1, // Auto-increment ID
+      text: req.body.text,
+      tags: req.body.tags || ['blog', 'writing'], // Default tags if not provided
+      username: req.body.username,
+      date: new Date().toISOString().split('T')[0], // Format the date as yyyy-mm-dd
+    })
+
+    // Save the new idea to the database
+    await idea.save()
+
+    const formattedIdea = {
+      ...idea._doc, // Spread the original document fields
+      date: idea.date.toISOString().split('T')[0], // Format the date
+    }
+    // Send the response with the saved idea data
+    res.json({
+      success: true,
+      data: formattedIdea,
+    })
+  } catch (error) {
+    console.error(error) // Log the error for debugging
+    res.status(500).json({
+      success: false,
+      message: 'Server error, could not save the idea',
+    })
   }
-
-  objIdea.push(idea)
-
-  res.json({
-    success: true,
-    data: idea,
-  })
 }
 
-const putIdea = (req, res) => {
-  const ideaId = req.params.id
-  const index = objIdea.findIndex((idea) => idea.id === +ideaId)
+const putIdea = async (req, res) => {
+  try {
+    const ideaId = req.params.id
 
-  if (index === -1) {
-    return res.status(404).json({ success: false, error: 'Resource not found' })
+    const ideas = await Idea.findOneAndUpdate(
+      { id: ideaId },
+      { $set: req.body },
+      { new: true },
+      { runValidators: true }
+    ).exec()
+
+    if (!ideas) {
+      return res
+        .status(404)
+        .json({ success: false, error: 'Resource not found' })
+    }
+    const formattedUpdatedIdea = {
+      ...ideas._doc,
+      date: ideas.date.toISOString().split('T')[0], // Format date to 'yyyy-mm-dd'
+    }
+
+    res.json({ success: true, data: formattedUpdatedIdea })
+  } catch (error) {
+    console.error(error) // Log the error for debugging
+    res.status(500).json({
+      success: false,
+      message: 'Server error, could not save the idea',
+    })
   }
-  const idea = objIdea[index]
-  objIdea[index] = { ...idea, ...req.body }
-  res.json({ success: true, data: objIdea[index] })
 }
 
-const deleteIdea = (req, res) => {
-  const ideaId = +req.params.id
+const deleteIdea = async (req, res) => {
+  try {
+    const ideaId = parseInt(req.params.id) // Parse the ID from the request parameters
 
-  const index = objIdea.findIndex((idea) => idea.id === ideaId)
+    // Find and delete the idea with the given custom ID
+    const deletedIdea = await Idea.findOneAndDelete({ id: ideaId })
 
-  if (index === -1) {
-    return res.status(404).json({ success: false, error: 'Resource not found' })
+    if (!deletedIdea) {
+      return res
+        .status(404)
+        .json({ success: false, error: 'Resource not found' })
+    }
+
+    res.json({
+      success: true,
+      data: deletedIdea, // Return the deleted idea in the response
+    })
+  } catch (error) {
+    console.error(error) // Log the error for debugging
+    res.status(500).json({
+      success: false,
+      message: 'Server error, could not delete the idea',
+    })
   }
-  const filteredIdea = objIdea.splice(index, 1)
-
-  res.json({
-    success: true,
-    data: filteredIdea,
-  })
 }
 
 module.exports = { getAllIdeas, getIdeaById, postIdea, deleteIdea, putIdea }
