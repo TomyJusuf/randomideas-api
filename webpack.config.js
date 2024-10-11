@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   mode: 'development', // Set the mode to development
-  entry: './src/index.js', // Update this to the correct entry point for your frontend
+  entry: './src/public/index.js', // Update this to the correct entry point for your frontend
 
   output: {
     filename: 'index.js', // The name of the output file
@@ -36,7 +36,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/index.html', // Path to your HTML file
+      template: './src/public/index.html', // Path to your HTML file
       filename: 'index.html', // Output filename
       inject: 'body',
       scriptLoading: 'defer',

@@ -24,14 +24,11 @@ const fetchData1 = new FetchData(url, '/')
 
 fetchData1.get().then((data) => {
   const div = document.createElement('div')
-  div.innerText = `${data.message}`
+  div.innerText = `Hello`
   document.getElementById('app').appendChild(div)
 })
-const fetchData = new FetchData(url, '/api/all')
+const fetchData = new FetchData(url, '/api/ideas')
 fetchData.get().then((data) => console.log(data, 'all data'))
 
-const fetchData2 = new FetchData(url, '/api/ideas')
+const fetchData2 = new FetchData(url, '/api/ideas/3')
 fetchData2.get().then((data) => console.log(data, 'ideas data'))
-
-const fetchData3 = new FetchData(url, '/api/technologies')
-fetchData3.get().then((data) => console.log(data, 'technologies data'))
