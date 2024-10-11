@@ -1,5 +1,3 @@
-// const { objIdea } = require('../../data/objData')
-
 const Idea = require('../../models/idea')
 
 const getAllIdeas = async (req, res) => {

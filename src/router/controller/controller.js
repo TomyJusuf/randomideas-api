@@ -5,8 +5,6 @@ const {
   deleteIdea,
   putIdea,
 } = require('./idea')
-const { getAllTechnologies, getTechnologieById } = require('./technologies')
-const getAll = require('./allObjects')
 
 module.exports = {
   getAllIdeas,
@@ -14,7 +12,4 @@ module.exports = {
   postIdea,
   deleteIdea,
   putIdea,
-  getAllTechnologies,
-  getTechnologieById,
-  getAll,
 }
