@@ -2,12 +2,11 @@
   "name": "randomideas",
   "version": "1.0.0",
   "description": "Idea sharing app",
-  "main": "app.js",
+  "main": "src/app.js",
   "scripts": {
-    "start": "nodemon ./src/app.js",
+    "start": "node src/app.js",
     "build": "webpack --mode production",
-    "dev": "webpack-dev-server --mode development ",
-    "dev:full": "concurrently \"npm run dev\" \"npm run start\""
+    "dev": "webpack-dev-server --mode development "
   },
   "author": "TomyJusuf",
   "license": "MIT",

@@ -13,7 +13,7 @@ const port = process.env.PORT || 5000
 connectDB()
 
 // Serve static files from the 'public' directory
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, '../public')))
 
 // Set up middleware
 app.use(cors()) // Enable CORS
