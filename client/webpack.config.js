@@ -11,6 +11,8 @@ module.exports = {
     path: path.resolve(__dirname, '../public'), // The output directory
     // publicPath: 'index.js', // Ensure that Webpack can resolve paths correctly
     assetModuleFilename: 'fonts/[name][ext]',
+    clean: true, // Cleans the output directory before each build
+    publicPath: '/',
   },
   module: {
     rules: [
