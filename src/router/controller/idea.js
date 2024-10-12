@@ -1,4 +1,5 @@
 const Idea = require('../../models/idea')
+const mongoose = require('mongoose')
 
 const getAllIdeas = async (req, res) => {
   try {
@@ -8,7 +9,7 @@ const getAllIdeas = async (req, res) => {
       ...idea._doc,
       date: idea.date.toISOString().split('T')[0], // 'yyyy-mm-dd'
     }))
-    // console.log(formattedIdeas, 'get data')
+
     res.json({ success: true, data: formattedIdeas })
   } catch (error) {
     res.status(500).json({
@@ -20,16 +21,21 @@ const getAllIdeas = async (req, res) => {
 
 const getIdeaById = async (req, res) => {
   try {
-    const id = req.params.id
+    const { id } = req.params
+    const isValidObjectId = (id) => mongoose.Types.ObjectId.isValid(id)
 
-    const idea = await Idea.findById(id).exec()
-
-    if (!idea) {
+    if (!isValidObjectId(id)) {
       return res
         .status(404)
         .json({ success: false, error: 'Resource not found' })
     }
 
+    const idea = await Idea.findById(id).exec()
+    if (!idea) {
+      return res
+        .status(404)
+        .json({ success: false, error: 'Resource not found' })
+    }
     const formatedIdea = {
       ...idea._doc,
       date: idea.date.toISOString().split('T')[0], // 'yyyy-mm-dd'
@@ -52,9 +58,8 @@ const postIdea = async (req, res) => {
   try {
     // Create a new Idea instance
     const idea = new Idea({
-      // id: (await Idea.countDocuments()) + 1, // Auto-increment ID
       text: req.body.text,
-      tags: req.body.tags || ['blog', 'writing'], // Default tags if not provided
+      tags: req.body.tags || ['blog', 'writing'],
       username: req.body.username,
       date: new Date().toISOString().split('T')[0], // Format the date as yyyy-mm-dd
     })
@@ -63,16 +68,16 @@ const postIdea = async (req, res) => {
     await idea.save()
 
     const formattedIdea = {
-      ...idea._doc, // Spread the original document fields
+      ...idea._doc,
       date: idea.date.toISOString().split('T')[0], // Format the date
     }
-    // Send the response with the saved idea data
+
     res.json({
       success: true,
       data: formattedIdea,
     })
   } catch (error) {
-    console.error(error) // Log the error for debugging
+    console.error(error)
     res.status(500).json({
       success: false,
       message: 'Server error, could not save the idea',
@@ -82,10 +87,9 @@ const postIdea = async (req, res) => {
 
 const putIdea = async (req, res) => {
   try {
-    const ideaId = req.params.id
-    console.log(ideaId)
+    const { id } = req.params
     const ideas = await Idea.findOneAndUpdate(
-      { _id: ideaId },
+      { _id: id },
       { $set: req.body },
       { new: true },
       { runValidators: true }
@@ -113,10 +117,9 @@ const putIdea = async (req, res) => {
 
 const deleteIdea = async (req, res) => {
   try {
-    const ideaId = req.params.id // Parse the ID from the request parameters
+    const { id } = req.params
 
-    // Find and delete the idea with the given custom ID
-    const deletedIdea = await Idea.findByIdAndDelete({ _id: ideaId })
+    const deletedIdea = await Idea.findByIdAndDelete({ _id: id })
 
     if (!deletedIdea) {
       return res
@@ -129,7 +132,7 @@ const deleteIdea = async (req, res) => {
       data: deletedIdea, // Return the deleted idea in the response
     })
   } catch (error) {
-    console.error(error) // Log the error for debugging
+    console.error(error)
     res.status(500).json({
       success: false,
       message: 'Server error, could not delete the idea',
