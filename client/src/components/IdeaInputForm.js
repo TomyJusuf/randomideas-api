@@ -7,6 +7,7 @@ class IdeaInputForm {
     this.delete = document.querySelector('.delete')
     this.card = document.querySelectorAll('.card')
     this.ideas = document.querySelector('.ideas')
+    this.url = 'http://localhost:5000/api/ideas'
     this.addEventListener()
   }
 
@@ -45,7 +46,7 @@ class IdeaInputForm {
       this.userName.value = localStorage.getItem('username')
       this.tag.value = ''
 
-      const response = await fetch('http://localhost:5000/api/ideas', {
+      const response = await fetch(this.url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -64,7 +65,7 @@ class IdeaInputForm {
 
   async getIdeas() {
     try {
-      const response = await fetch('http://localhost:5000/api/ideas')
+      const response = await fetch(this.url)
 
       if (!response.ok) throw new Error('Failed to fetch ideas')
 
@@ -113,7 +114,7 @@ class IdeaInputForm {
     ) {
       try {
         const id = e.target.parentElement.parentElement.id
-        await fetch(`http://localhost:5000/api/ideas/${id}`, {
+        await fetch(`${this.url}/${id}`, {
           method: 'DELETE',
         })
 
