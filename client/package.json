@@ -4,8 +4,8 @@
   "description": "Boilerplate for creating apps with Webpack",
   "main": "index.js",
   "scripts": {
-    "build": "webpack",
-    "dev": "webpack serve"
+    "build": "webpack --mode production",
+    "dev": "webpack-dev-server --mode development"
   },
   "author": "Brad Traversy",
   "license": "MIT",
