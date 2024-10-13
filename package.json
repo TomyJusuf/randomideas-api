@@ -15,7 +15,6 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.0",
-    "html-webpack-plugin": "^5.6.0",
     "mongoose": "^8.7.1"
   },
   "devDependencies": {
@@ -23,9 +22,6 @@
     "@babel/preset-env": "^7.25.7",
     "babel-loader": "^8.4.1",
     "concurrently": "^9.0.1",
-    "nodemon": "^3.1.7",
-    "webpack": "^5.0.0",
-    "webpack-cli": "^4.0.0",
-    "webpack-dev-server": "^4.0.0"
+    "nodemon": "^3.1.7"
   }
 }
