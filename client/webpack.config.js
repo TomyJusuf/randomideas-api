@@ -3,7 +3,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
-  mode: 'development', // Set the mode to development
+  mode: 'production', // Set the mode to development
   entry: path.resolve(__dirname, './src/index.js'), // Update this to the correct entry point for your frontend
 
   output: {
