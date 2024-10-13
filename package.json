@@ -5,8 +5,8 @@
   "main": "src/app.js",
   "scripts": {
     "start": "node src/app.js",
-    "build": "webpack --mode production",
-    "dev": "webpack-dev-server --mode development "
+    "build": "cd client && npm run build",
+    "dev": "cd client && npm run dev"
   },
   "author": "TomyJusuf",
   "license": "MIT",
