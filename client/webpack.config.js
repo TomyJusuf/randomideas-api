@@ -3,8 +3,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
-  mode: 'production', // Set the mode to development
-  entry: './src/index.js', // Update this to the correct entry point for your frontend
+  mode: 'development', // Set the mode to development
+  entry: path.resolve(__dirname, './src/index.js'), // Update this to the correct entry point for your frontend
 
   output: {
     filename: 'index.js', // The name of the output file
@@ -47,7 +47,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/index.html', // Path to your HTML file
+      template: path.resolve(__dirname, './src/index.html'), // Path to your HTML file
       filename: 'index.html', // Output filename
       inject: 'body',
       scriptLoading: 'defer',
