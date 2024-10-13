@@ -4,10 +4,8 @@
   "description": "Idea sharing app",
   "main": "src/app.js",
   "scripts": {
-    "clean": "rm -rf client/node_modules && cd client && npm install",
     "start": "node src/app.js",
-    "build": "cd client && npm install && npm run build",
-    "dev": "cd client && npm run dev"
+    "dev": "nodemon src/app.js"
   },
   "author": "TomyJusuf",
   "license": "MIT",
